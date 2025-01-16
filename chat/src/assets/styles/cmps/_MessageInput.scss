@@ -1,0 +1,67 @@
+@mixin input-style {
+  width: 100%;
+  padding: 10px;
+  border-radius: 25px 0 0px 25px;
+  border: 1px solid $whatsapp-input-border;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+  resize: none;
+  height: 40px; 
+  line-height: 1.5;
+  overflow-y: hidden;
+}
+
+@mixin button-style {
+  background-color: $whatsapp-button-bg;
+  color: $whatsapp-button-text;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  height: 40px;
+}
+
+@mixin button-hover {
+  &:hover {
+    background-color: $whatsapp-button-hover-bg;
+  }
+}
+
+.message-input {
+  @include flex-center;
+  width: 100%;
+  max-width: 500px;
+  gap: 10px;
+
+  textarea {
+    @include input-style;
+    overflow-y: auto;
+    resize: none;
+
+    &:focus {
+      border-color: $whatsapp-input-focus-border;
+    }
+
+    /* Custom scrollbar styles */
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $whatsapp-scrollbar-thumb; // Color for scrollbar thumb
+      border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $whatsapp-scrollbar-track; // Color for scrollbar track
+    }
+  }
+
+  .send-button {
+    @include button-style;
+
+    @include button-hover;
+  }
+}

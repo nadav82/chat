@@ -1,0 +1,100 @@
+// SCSS for App component
+
+
+$whatsapp-img-size: 40px; // Adjust the image size here
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  @include flex-center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: $whatsapp-bg;
+  padding: 10px;
+
+  .chat-window {
+    // @include flex-center;
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    overflow-y: auto;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .message {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+
+    &.sent {
+      justify-content: flex-start;
+
+      .message-content {
+        align-items: flex-start;
+      }
+    }
+
+    &.received {
+      justify-content: flex-end;
+
+      .message-content {
+        align-items: flex-end;
+      }
+    }
+
+    .user-img {
+      width: $whatsapp-img-size;
+      height: $whatsapp-img-size;
+      border-radius: 50%;
+      object-fit: cover; // Ensures the image is cropped correctly
+    }
+
+    .message-content {
+      max-width: 70%;
+      display: flex;
+      text-align: center;
+      flex-direction: column;
+
+      .message-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        color: $whatsapp-received-text-color;
+
+        .timestamp {
+          color: #888;
+          font-size: 0.8rem;
+          padding: 3px 10px;
+        }
+      }
+
+      .message-text {
+        background-color: $whatsapp-message-bg-sent;
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 1rem;
+        color: $whatsapp-sent-text-color;
+        margin-top: 5px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
+        white-space: pre-wrap;
+      }
+    }
+  }
+
+  .message.received .message-text {
+    background-color: $whatsapp-message-bg-received;
+    border: 1px solid $whatsapp-message-border;
+  }
+}
