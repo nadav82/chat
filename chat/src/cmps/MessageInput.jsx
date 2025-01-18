@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const MessageInput = ({ message, setMessage, handleSendMessage, handleKeyDown }) => {
   return (
@@ -13,7 +13,7 @@ const MessageInput = ({ message, setMessage, handleSendMessage, handleKeyDown })
         Send
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default MessageInput;
+export default MessageInput

@@ -46,9 +46,3 @@ function saveToStorage(key, value) {
 }
 
 
-// function ShortFormattedDate(timeStamp) {
-//   const date = new Date(timeStamp)
-//   return date.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})
-// }
-
-

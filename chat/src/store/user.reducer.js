@@ -20,46 +20,45 @@ const initialState = {
 }
 
 export function userReducer(state = initialState, action) {
-    var newState = state
+    let newState = state
     switch (action.type) {
-        case SET_USER:
-            newState = { ...state, user: action.user }
-            break
-        case SET_WATCHED_USER:
-            newState = { ...state, watchedUser: action.user }
-            break
-        case REMOVE_USER:
-            newState = {
-                ...state,
-                users: state.users.filter(user => user._id !== action.userId)
-            }
-            break
-        case SET_USERS:
-            newState = { ...state, users: action.users }
-            break
-        case SET_WISH_LIST:
-            newState = { ...state, user: { ...state.user, score: action.score } }
-            break
-        case NOTIFY:
-            return { ...state, notifications: [...state.notifications, action.notification] }
-        case REMOVE_NOTIFICATION:
-            return {
-                ...state,
-                notifications: state.notifications.filter(
-                    (notification) => notification.type !== action.notificationType
-                )
-            }
-        case CLEAR_NOTIFICATIONS:
-            return {
-                ...state,
-                notifications: []
-            }
-
-        default:
+      case SET_USER:
+        if (state.user && state.user._id !== action.user._id) {
+          // Avoid overwriting the logged-in user with a different one
+          newState = { ...state, user: action.user }
+        }
+        break
+      case REMOVE_USER:
+        newState = {
+          ...state,
+          users: state.users.filter(user => user._id !== action.userId)
+        }
+        break
+      case SET_USERS:
+        newState = { ...state, users: action.users }
+        break
+      case SET_WATCHED_USER:
+        newState = { ...state, watchedUser: action.user }
+        break
+      case SET_WISH_LIST:
+        newState = { ...state, user: { ...state.user, score: action.score } }
+        break
+      case NOTIFY:
+        return { ...state, notifications: [...state.notifications, action.notification] }
+      case REMOVE_NOTIFICATION:
+        return {
+          ...state,
+          notifications: state.notifications.filter(
+            (notification) => notification.type !== action.notificationType
+          )
+        }
+      case CLEAR_NOTIFICATIONS:
+        return {
+          ...state,
+          notifications: []
+        }
+      default:
     }
-    // For debug:
-    // window.userState = newState
-    // console.log('State:', newState)
     return newState
-
-}
+  }
+  

@@ -14,7 +14,7 @@ export function LoginSignup({ closeModal }) {
   const [isSignup, setIsSignup] = useState(false)
   const [users, setUsers] = useState([])
   // const user = useSelector((state) => state.userModule.user)
-  const navigate = useNavigate() //^ optional
+  const navigate = useNavigate()
   useEffect(() => {
     loadUsers()
   }, [])
@@ -41,15 +41,17 @@ export function LoginSignup({ closeModal }) {
     if (!credentials.username) return
     const user = await login(credentials)
     // showSuccessMsg(`Welcome: ${user.fullname}`)
+    ; // Navigate to a new page after successful login
     try {
-      closeModal()
+      // closeModal()
+      navigate('/')
     } catch (err) {
       const user = await login(credentials)
       // showSuccessMsg(`Welcome: ${user.fullname}`)
       // showErrorMsg('Cannot login')
     }
     clearState()
-    closeModal()
+    // closeModal()
   }
 
   function onSignup(ev = null) {
@@ -59,7 +61,8 @@ export function LoginSignup({ closeModal }) {
     if (!credentials.imgUrl) { credentials.imgUrl = 'https://robohash.org/mat.png?size=50x50&set=set4' }
     signup(credentials)
     clearState()
-    closeModal()
+    navigate('/')
+    // closeModal()
   }
 
   function toggleSignup() {

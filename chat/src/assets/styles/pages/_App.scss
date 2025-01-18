@@ -1,14 +1,6 @@
 // SCSS for App component
 
 
-$whatsapp-img-size: 40px; // Adjust the image size here
-
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .app {
   @include flex-center;
   flex-direction: column;
@@ -16,8 +8,20 @@ $whatsapp-img-size: 40px; // Adjust the image size here
   background-color: $whatsapp-bg;
   padding: 10px;
 
+  .sidebar {
+    position: absolute;  
+    top: 0;
+    left: 0;
+    width: 200px;         
+    height: 100vh;
+    background-color: $whatsapp-bg;
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;           
+  }
+
   .chat-window {
-    // @include flex-center;
+    // margin-left: 400px;   
     width: 100%;
     max-width: 500px;
     height: 100%;
@@ -96,5 +100,24 @@ $whatsapp-img-size: 40px; // Adjust the image size here
   .message.received .message-text {
     background-color: $whatsapp-message-bg-received;
     border: 1px solid $whatsapp-message-border;
+  }
+}
+
+.typing-indicator {
+  margin-top: 10px;
+  font-style: italic;
+  color: #888;
+  animation: typingAnimation 1s ease-in-out infinite;
+}
+
+@keyframes typingAnimation {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
   }
 }
