@@ -1,6 +1,7 @@
 import React from 'react'
 
 const MessageInput = ({ message, setMessage, handleSendMessage, handleKeyDown }) => {
+  
   return (
     <div className="message-input">
       <textarea

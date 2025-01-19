@@ -1,37 +1,40 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { loadUsers } from '../store/user.actions' 
 
-const UserList = ({ onlineUsers, loggedinUser, setPrivateChat }) => {
-  const users = useSelector((storeState) => storeState.userModule.user)
-  // console.log(users)
+function UserList({ onlineUsers, loggedinUser, setPrivateChat }) {
+  const users = useSelector((storeState) => storeState.userModule.users)
+  const dispatch = useDispatch()
 
-  const handleUserClick = (user) => {
+  function handleUserClick(user) {
     if (user.fullname !== loggedinUser.fullname) {
-      setPrivateChat(user.fullname) 
+      setPrivateChat(user.fullname)
     }
   }
+
+  useEffect(() => {
+    (loadUsers())
+  }, [])
 
   return (
     <div className="user-list">
       <h3>All Users</h3>
-      <ul>
-        {/* Check if users is an array before mapping */}
-        {Array.isArray(users) ? (
-          users.map((user, index) => (
-            <li
-              key={index}
-              className={onlineUsers.includes(user.fullname) ? 'online' : 'offline'}
-              onClick={() => handleUserClick(user)}
-            >
-              <img src={user.imgUrl} alt="User" className="user-img" />
-              <strong>{user.fullname}</strong>
-              {onlineUsers.includes(user.fullname) && <span className="status"> (Online)</span>}
-            </li>
-          ))
-        ) : (
-          <p>No users available</p>
-        )}
-      </ul>
+      <strong>{loggedinUser.fullname}</strong>
+  <ul>
+    {Array.isArray(users) && users.length > 0 ? (
+      users.map((user, index) => (
+        <li key={index} onClick={() => handleUserClick(user)} className="user-item">
+          <img src={user.imgUrl} alt="User" className="user-img" />
+          <div className="user-info">
+            <strong>{user.fullname}</strong>
+            {onlineUsers.includes(user.fullname) && <span className="status"> (Online)</span>}
+          </div>
+        </li>
+      ))
+    ) : (
+      <p>No users available</p>
+    )}
+  </ul>
     </div>
   )
 }
